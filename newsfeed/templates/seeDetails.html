@@ -1,0 +1,157 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+  <h1>{{arequest.title}} Blood {{arequest.type}}</h1>
+  <hr />
+
+  <div class="row">
+    <div class="col-md-6">
+      <p>{{arequest.description}}</p>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td>Location</td>
+            <td style="color: red">{{arequest.location}}</td>
+          </tr>
+          <tr>
+            <td>Contact</td>
+            <td style="color: red">0{{arequest.phoneNum}}</td>
+          </tr>
+          <tr>
+            <td>Author</td>
+            <td>{{arequest.author.user.username}}</td>
+          </tr>
+          <tr>
+            <td>Blood Group</td>
+
+            <td>{{arequest.bloodGroup}}</td>
+          </tr>
+          <tr>
+            <td>Total Bag</td>
+
+            <td>{{arequest.bag}}</td>
+          </tr>
+          <tr>
+            <td>Author's Address</td>
+
+            <td>{{arequest.author.address}}</td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td>{{arequest.type}}</td>
+          </tr>
+          <tr>
+            <td>People Want to Donate</td>
+            <td>
+              {{arequest.reqForDonate.count}} &nbsp; &#x387; &nbsp;
+              <a href="{% url 'see-requested-donor' arequest.id %}">
+                See Them</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Create At</td>
+            <td>{{arequest.created_at}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <form id="" action="{% url 'comment-post' arequest.id %}" method="POST" class="ui form my-3">
+        {% csrf_token %}
+        <input
+          placeholder="Add Your Comment"
+          class="ui input"
+          type="text"
+          name="commnet-box"
+          id="id_comment-box"
+          style="max-width: 70%"
+        />
+        {% if profile == "AnonymousUser" %}
+
+        <a
+          href="{% url 'login-account' %}"
+          type="button"
+          class="ui primary button"
+        >
+          Add This Comment 
+        </a>
+        {% else %}
+        <button type="submit" name="submit_c_form" class="ui primary button">
+          Add Comment Publicly
+        </button>
+        {% endif %}
+      </form>
+
+      {% if profile not in arequest.reqForDonate.all and profile == arequest.author %}
+
+      <button class="ui green basic button">
+        <a href="{% url 'edit-post' arequest.id %}">Edit</a>
+      </button>
+      <button class="ui red basic button">
+        <a href="{% url 'post-delete' arequest.id %}">Delete</a>
+      </button>
+
+      {% elif profile not in arequest.reqForDonate.all and profile != arequest.author %}
+      <button class="ui green basic button">
+        <a href="{% url 'arequest-add-remove' arequest.id %}">Accept Request</a>
+      </button>
+
+      {% else %}
+
+      <button class="ui green basic button">
+        <a href="{% url 'arequest-add-remove' arequest.id %}">Cancel Donate</a>
+      </button>
+
+      {% endif %}
+
+      <button class="ui secondary button">
+        <a href="{% url 'home' %}">Back to Feed</a>
+      </button>
+    </div>
+    <div class="col-md-6">
+      <h1>Comments({{arequest.CommentCount}})</h1>
+      <hr />
+      {% if allCommnets|length > 0 %} {% for comment in allCommnets %}
+      <div class="ui comments">
+        <div class="comment">
+          <a class="avatar">
+            <img src="{{comment.user.avatar.url}}" />
+          </a>
+          <div class="content">
+            <a
+              class="author"
+              href="{% url 'get-profile' comment.user.id %}"
+              >{{comment.user.user.username}}</a
+            >
+            <div class="metadata">
+              <div class="date">{{comment.created}}</div>
+            </div>
+            <div class="text">
+              <p>
+                {{comment.body}} {% if profile == comment.user %}
+
+                <a
+                  href="{% url 'delete-comment' comment.id  arequest.id %}"
+                >
+                  <i class="red trash icon"></i>
+                </a>
+
+                {% endif %}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <div>
+        <p style="text-align: center">Be the First One to do Comment</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %} {% block scripts %}
+
+<script></script>
+{% endblock scripts %}

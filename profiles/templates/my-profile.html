@@ -1,0 +1,202 @@
+{% extends 'base.html' %} {% block content%}
+
+<div class="container" style="width: 880px">
+  <div class="card">
+    <img
+      class="rounded-circle article-img mx-auto d-block my-2"
+      style="height: 150px; width: 150px"
+      src="{{profile.avatar.url}}"
+    />
+    <div class="card-title">
+      <h1 style="text-align: center">
+        {{profile.user.username}}
+
+        <a href="{% url 'edit-profile' profile.id %}">
+          <button class="tiny ui blue basic button">
+            <i class="edit icon"></i>Edit
+          </button>
+        </a>
+      </h1>
+      <p style="text-align: center; font-style: italic">{{profile.bio}}</p>
+    </div>
+    <p1 style="text-align: center">{{profile.user.email}}</p1>
+    <p1 style="text-align: center">{{profile.user.created_at}}(Joined)</p1>
+
+    <div class="mx-2">
+      <hr />
+      <h5 style="text-align: center">Personal Details:</h5>
+      <table class="table table-bordered" style="text-align: center">
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td>{{profile.name}}</td>
+          </tr>
+          <tr>
+            <td>Last Blood Given</td>
+            <td>{{profile.lastGiven}}</td>
+          </tr>
+          <tr>
+            <td>Total Blood Donated</td>
+            <td>{{profile.totalDonate}}</td>
+          </tr>
+
+          <tr>
+            <td>Address</td>
+            <td>{{profile.address}}</td>
+          </tr>
+          <tr>
+            <td>Blood Group</td>
+            <td>{{profile.bloodGroup}}</td>
+          </tr>
+          <tr>
+            <td>Phone Number</td>
+            <td>0{{profile.phoneNum}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <br />
+</div>
+
+<div class="container">
+  <hr />
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3 style="text-align: center">You Have Requested For Blood</h3>
+      <hr />
+      {% for arequest in requestedPosts %}
+
+      <div class="container">
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title">
+              <a href="">
+                <h1>{{arequest.title}} Blood {{request.type}}</h1>
+                <p>{{arequest.description|slice:1250|safe}}....</p>
+              </a>
+              <hr />
+            </div>
+            <div>
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td>Location</td>
+                    <td style="color: red">{{arequest.location}}</td>
+                  </tr>
+                  <tr>
+                    <td>Contact</td>
+                    <td style="color: red">{{arequest.phoneNum}}</td>
+                  </tr>
+                  <tr>
+                    <td>Author</td>
+                    <td>{{arequest.author.user.username}}</td>
+                  </tr>
+                  <tr>
+                    <td>Blood Group</td>
+
+                    <td>{{arequest.bloodGroup}}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Bag</td>
+
+                    <td>{{arequest.bag}}</td>
+                  </tr>
+                  <tr>
+                    <td>Author's Address</td>
+
+                    <td>{{arequest.author.address}}</td>
+                  </tr>
+                  <tr>
+                    <td>Status</td>
+                    <td>{{arequest.type}}</td>
+                  </tr>
+                  <tr>
+                    <td>Create At</td>
+                    <td>{{arequest.created_at}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <a href="{% url 'see-details' arequest.id %}">
+                <button class="ui secondary button">See More</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <br />
+      </div>
+
+      {% endfor %}
+    </div>
+
+    <div class="col-md-6">
+      <h3 style="text-align: center">You Wanted to Donate</h3>
+      <hr />
+
+      {% for arequest in donatedPosts %}
+      <div class="container">
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title">
+              <a href="">
+                <h1>{{arequest.title}} Blood {{request.type}}</h1>
+                <p>{{arequest.description|slice:1250|safe}}....</p>
+              </a>
+              <hr />
+            </div>
+            <div>
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td>Location</td>
+                    <td style="color: red">{{arequest.location}}</td>
+                  </tr>
+                  <tr>
+                    <td>Contact</td>
+                    <td style="color: red">{{arequest.phoneNum}}</td>
+                  </tr>
+                  <tr>
+                    <td>Author</td>
+                    <td>{{arequest.author.user.username}}</td>
+                  </tr>
+                  <tr>
+                    <td>Blood Group</td>
+
+                    <td>{{arequest.bloodGroup}}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Bag</td>
+
+                    <td>{{arequest.bag}}</td>
+                  </tr>
+                  <tr>
+                    <td>Author's Address</td>
+
+                    <td>{{arequest.author.address}}</td>
+                  </tr>
+                  <tr>
+                    <td>Status</td>
+                    <td>{{arequest.type}}</td>
+                  </tr>
+                  <tr>
+                    <td>Create At</td>
+                    <td>{{arequest.created_at}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <a href="{% url 'see-details' arequest.id %}">
+                <button class="ui secondary button">See More</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <br />
+      </div>
+
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock content%}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+  {% if allDonor|length == 0 %}
+  <h1>No one Has Requested Yet For The Donation</h1>
+
+  <h1 style='font-size:100px;'>&#128542;</h1>
+  {% else %}
+  <div class="row">
+    {% for donor in allDonor %}
+    <div class="col-md-3">
+      <div class="ui cards">
+        <div class="card">
+          <div class="content">
+            <img
+              class="right floated mini ui image"
+              src="{{donor.avatar.url}}"
+              style="height: 45px"
+            />
+            <div class="header"><a href="{% url 'get-profile' donor.id %}">{{donor.name}}</a></div>
+            <div class="meta">{{donor.bio}}</div>
+            <div class="meta">Blood Group - {{donor.bloodGroup}}</div>
+            <div class="meta">Adsress - {{donor.address}}</div>
+            <div class="description">Total Donated -{{donor.totalDonate}} times</div>
+            <div class="description">Last Donated -{{donor.lastGiven}}</div>
+          </div>
+          <div class="my-2 mx-3">
+            <button class="ui green basic button">
+              <a href="{% url 'contact-now' donor.id %}">Contact Now</a>
+            </button>
+            <button class="ui green basic button">
+              <a href="{% url 'home' %}">Back To Home</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor%}
+  </div>
+  {% endif %}
+</div>
+
+{% endblock content %}

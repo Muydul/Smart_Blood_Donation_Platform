@@ -1,0 +1,74 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+    <h1>Newest Emergency</h1>
+    <hr>
+  <div class="row">
+    {% for request in allRequest %}
+
+    <div class="container col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">
+            <a href="">
+              <h1>{{request.title}} Blood {{request.type}}</h1>
+              <p>{{request.description|slice:1250|safe}}....
+              </p>
+            </a>
+            <hr />
+          </div>
+          <div>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>Location</td>
+                  <td style="color: red">{{request.location}}</td>
+                </tr>
+                <tr>
+                  <td>Contact</td>
+                  <td style="color: red">0{{request.phoneNum}}</td>
+                </tr>
+                <tr>
+                  <td>Author</td>
+                  <td>{{request.author.user.username}}</td>
+                </tr>
+                <tr>
+                  <td>Blood Group</td>
+
+                  <td>{{request.bloodGroup}}</td>
+                </tr>
+                <tr>
+                  <td>Total Bag</td>
+
+                  <td>{{request.bag}}</td>
+                </tr>
+                <tr>
+                  <td>Author's Address</td>
+
+                  <td>{{request.author.address}}</td>
+                </tr>
+                <tr>
+                  <td>Status</td>
+                  <td>{{request.type}}</td>
+                </tr>
+                <tr>
+                  <td>Create At</td>
+                  <td>{{request.created_at}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <a href="{% url 'see-details' request.id %}">
+
+              <button class="ui secondary button">See More</button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+
+    {% endfor %}
+  </div>
+
+  {% endblock content %}
+</div>

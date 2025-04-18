@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% block content %}
+
+<style>
+  .intro {
+    text-align: center;
+  }
+</style>
+
+<div class="container mt-2">
+  <div class="jumbotron">
+    <h1 class="display-4">About Us</h1>
+
+    <h5>Hello, {{request.user.username}}</h5>
+    <ul>
+      <p>
+        Boyan 1
+      </p>
+      <p>
+        Boyan 2
+      </p>
+      <p>
+        Boyan 3
+      </p>
+    </ul>
+    <p class="lead" style="color: red">
+      This Website is Under Construction and Developed by Muedul Islam Mued
+      , Roll - 1903136
+      <br />
+      Due to The Course of CSE 3100 ,Under The Supervisor Lecturer Name
+    </p>
+    <hr class="my-4" />
+    <div class="row">
+      <div class="col-sm-6">
+        <h4 class="intro">Submitted To</h4>
+        <h2 class="intro">Name</h2>
+        <h3 class="intro">Lecturer</h3>
+        <h5 class="intro">Rajshahi University of Engineering and Technology</h5>
+      </div>
+      <div class="col-sm-6">
+        <h4 class="intro">Submitted By</h4>
+        <h2 class="intro">Muedul Islam Mued</h2>
+        <h3 class="intro">Roll - 1903136</h3>
+        <h5 class="intro">Rajshahi University of Engineering and Technology</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
